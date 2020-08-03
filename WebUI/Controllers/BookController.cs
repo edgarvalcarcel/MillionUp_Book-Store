@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Application.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 
 namespace WebUI.Controllers
 {
@@ -42,7 +43,63 @@ namespace WebUI.Controllers
         {
             BookVM model = _bookService.Upsert(book);
             return RedirectToAction(nameof(Index));
+        }
+
+        public IActionResult Details(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var book = _bookService.GetBookById((int)id);
+            if (book == null)
+            {
+                return NotFound();
+            }
+            return View(book);
+        }
+        
+        public IActionResult Edit(int? id)
+        {
+            ViewData["PublisherId"] = new SelectList(_publisherService.GetPublishers().Publishers, "Id", "Name");
+            ViewData["AuthorId"] = new SelectList(_authorService.GetAuthors().Authors, "Id", "FullName");
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var book = _bookService.GetBookById((int)id);
+            if (book == null)
+            {
+                return NotFound();
+            }
+            return View(book);
         } 
+        
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit(int id, [Bind("Id,Title,ISBN,Synopsis,Npages,PublisherId,AuthorId")] BookVM book)
+        {
+            if (id != book.Id)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    BookVM model = _bookService.Upsert(book); 
+                }
+                catch (DbUpdateConcurrencyException)
+                { 
+                        throw; 
+                } 
+            }
+            return RedirectToAction(nameof(Index));
+        }
+
     }
 }
 

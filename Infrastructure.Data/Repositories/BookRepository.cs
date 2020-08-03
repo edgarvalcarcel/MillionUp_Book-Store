@@ -23,10 +23,11 @@ namespace Infrastructure.Data.Repositories
         }
         
         public Book Upsert(Book book)
-        {
-
+        { 
             if (book.Id.HasValue && book.Id > 0)
-            {
+            { 
+                //_context.Books.Update(entity);
+                //_context.SaveChanges();
                 return GetBookById(book.Id.Value);
             }
             else
@@ -44,12 +45,11 @@ namespace Infrastructure.Data.Repositories
                 return book;
             }
         }
-
-        
-
         public Book GetBookById(int Id)
         {
-            return _context.Books.FirstOrDefault(a => a.Id == Id);
+           var bookvm =  _context.Books.Include(a => a.AuthorBook).ThenInclude(x => x.Author)
+                                 .Include(p => p.Publisher).FirstOrDefault(a => a.Id == Id);
+            return bookvm;
         }
     }
 }

@@ -9,5 +9,6 @@ namespace Domain.Interfaces
     {
         AuthorBook GetAuthorsByBook(int Id);
         AuthorBook Upsert(AuthorBook authorbook);
+        void Delete(AuthorBook authorbook);
     }
 }

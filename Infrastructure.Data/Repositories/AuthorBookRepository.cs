@@ -15,27 +15,34 @@ namespace Infrastructure.Data.Repositories
         {
             _context = context;
         }
+
+        public void Delete(AuthorBook authorbook)
+        {
+            _context.AuthorBooks.Remove(authorbook);
+            _context.SaveChanges();
+        }
+
         public AuthorBook GetAuthorsByBook(int Id)
         {
-            throw new NotImplementedException();
+            return _context.AuthorBooks.FirstOrDefault(a => a.BookId == Id);
         }
         public AuthorBook Upsert(AuthorBook authorbook)
         {
             if (authorbook.Id.HasValue && authorbook.Id > 0)
             {
-                return GetAuthorsByBook(authorbook.Id.Value);
-            }
-            else
-            {
-                AuthorBook entity = new AuthorBook
-                {
-                    AuthorId = authorbook.AuthorId,
-                    BookId = authorbook.BookId
-                };
-                _context.AuthorBooks.Add(entity);
+                var authorbookModel = GetAuthorsByBook(authorbook.Id.Value);
+                Delete(authorbookModel);
                 _context.SaveChanges();
-                return entity;
             }
-        }
+            AuthorBook entity = new AuthorBook
+            {
+                AuthorId = authorbook.AuthorId,
+                BookId = authorbook.BookId
+            };
+            _context.AuthorBooks.Add(entity);
+            _context.SaveChanges();
+            return entity;
+            
+        } 
     }
 }

@@ -4,6 +4,7 @@ using Domain.Interfaces;
 using Domain.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Application.Services
@@ -21,11 +22,34 @@ namespace Application.Services
         public BookVM GetBookById(int Id)
         {
             var BookView = _bookRepository.GetBookById(Id);
-            return new BookVM()
-            { 
-                Id = (int)BookView.Id,Title = BookView.Title,ISBN = BookView.ISBN,
-                Synopsis = BookView.Synopsis,Npages = BookView.Npages,PublisherId = BookView.PublisherId
+
+            PublisherViewModel PublisherVm = new PublisherViewModel
+            {
+                Id = BookView.Publisher.Id,
+                Name = BookView.Publisher.Name
             };
+            AuthorViewModel AuthorVm = new AuthorViewModel
+            {
+                Id = (int)BookView.AuthorBook.FirstOrDefault().Author.Id,
+                Name = BookView.AuthorBook.FirstOrDefault().Author.Name,
+                SurName= BookView.AuthorBook.FirstOrDefault().Author.SurName
+            };
+            AuthorBookViewModel AuthorBookVm = new AuthorBookViewModel
+            {
+                Id = (int)BookView.AuthorBook.FirstOrDefault().Author.Id,
+                AuthorId = (int)BookView.AuthorBook.FirstOrDefault().Author.Id,
+                BookId = (int)BookView.AuthorBook.FirstOrDefault().Book.Id
+            };
+            BookVM bookVm = new BookVM()
+            {
+                Id = (int)BookView.Id, Title = BookView.Title, ISBN = BookView.ISBN,
+                Synopsis = BookView.Synopsis, Npages = BookView.Npages, PublisherId = BookView.PublisherId,
+                Author = AuthorVm,
+                AuthorBook = AuthorBookVm,
+                Publisher = PublisherVm,
+                AuthorId = (int)BookView.AuthorBook.FirstOrDefault().AuthorId
+            };
+            return bookVm;
         }
 
         public BookViewModel GetBooks()
