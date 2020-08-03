@@ -1,0 +1,38 @@
+﻿@model Application.ViewModels.BookViewModel
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h2>Books</h2>
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table id="book" class="table table-bordered table-hover">
+    <thead>
+        <tr class="">
+            <th>Title</th>
+            <th>ISBN</th>
+            <th>Synopsis</th>
+            <th>Npages</th>
+            <th>Publisher</th>
+            <th>#</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var book in Model.Books)
+        {
+        <tr style="height: 60px;">
+            <td>@book.Title</td>
+            <td>@book.ISBN</td>
+            <td>@book.Synopsis</td>
+            <td>@book.Npages</td>
+            <td>@book.Publisher.Name</td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@book.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@book.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@book.Id">Delete</a>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,33 @@
+﻿@model Application.ViewModels.AuthorsViewModel
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h2>Authors</h2>
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table id="author" class="table table-bordered table-hover">
+    <thead>
+        <tr class="">
+            <th>Name</th>
+            <th>Surname</th>
+            <th>#</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var author in Model.Authors)
+        {
+            <tr style="height: 60px;">
+                <td>@author.Name</td>
+                <td>@author.SurName</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@author.Id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@author.Id">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@author.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

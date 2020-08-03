@@ -1,0 +1,32 @@
+﻿@model Application.ViewModels.PublisherListViewModel
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h2>Publishers</h2>
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table id="publisher" class="table table-bordered table-hover">
+    <thead>
+        <tr class="">
+            <th>Id</th>
+            <th>Name</th>
+            <th>#</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var publisher in Model.Publishers)
+        {
+        <tr style="height: 60px;">
+            <td>@publisher.Id</td>
+            <td>@publisher.Name</td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@publisher.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@publisher.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@publisher.Id">Delete</a>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
