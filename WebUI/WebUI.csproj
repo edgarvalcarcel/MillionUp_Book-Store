@@ -8,12 +8,16 @@
 
   <ItemGroup>
     <Compile Remove="Views\Author\**" />
+    <Compile Remove="Views\Books\**" />
     <Compile Remove="wwwroot\css\basket\**" />
     <Content Remove="Views\Author\**" />
+    <Content Remove="Views\Books\**" />
     <Content Remove="wwwroot\css\basket\**" />
     <EmbeddedResource Remove="Views\Author\**" />
+    <EmbeddedResource Remove="Views\Books\**" />
     <EmbeddedResource Remove="wwwroot\css\basket\**" />
     <None Remove="Views\Author\**" />
+    <None Remove="Views\Books\**" />
     <None Remove="wwwroot\css\basket\**" />
   </ItemGroup>
 

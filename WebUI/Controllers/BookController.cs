@@ -32,13 +32,13 @@ namespace WebUI.Controllers
         public IActionResult Create()
         { 
             ViewData["PublisherId"] = new SelectList(_publisherService.GetPublishers().Publishers, "Id", "Name");
-            ViewData["AuthorId"] = new SelectList(_authorService.GetAuthors().Authors, "Id", "Id");
+            ViewData["AuthorId"] = new SelectList(_authorService.GetAuthors().Authors, "Id", "FullName");
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create([Bind("Id,Title,ISBN,Synopsis,Npages,PublisherId")] BookVM book)
+        public IActionResult Create([Bind("Id,Title,ISBN,Synopsis,Npages,PublisherId,AuthorId")] BookVM book)
         {
             BookVM model = _bookService.Upsert(book);
             return View(model);

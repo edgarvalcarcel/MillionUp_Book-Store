@@ -12,7 +12,9 @@ namespace Application.ViewModels
         public string Synopsis { get; set; }
         public string Npages { get; set; }
         public int PublisherId { get; set; }
+        public int AuthorId { get; set; }
         public virtual PublisherViewModel Publisher { get; set; }
-        public virtual ICollection<AuthorBookViewModel> AuthorBook { get; private set; }
+        public virtual AuthorViewModel Author { get; set; }
+        public virtual AuthorBookViewModel AuthorBook { get; set; }
     }
 }

@@ -11,9 +11,11 @@ namespace Application.Services
     public class BookService : IBookService
     {
         public IBookRepository _bookRepository;
-        public BookService(IBookRepository bookRepository)
+        public IAuthorBookRepository _authorbookRepository;
+        public BookService(IBookRepository bookRepository, IAuthorBookRepository authorbookRepository)
         {
             _bookRepository = bookRepository;
+            _authorbookRepository = authorbookRepository;
         }
 
         public BookVM GetBookById(int Id)
@@ -43,11 +45,21 @@ namespace Application.Services
                 Npages = book.Npages,PublisherId = book.PublisherId
             };
             var entitybook = _bookRepository.Upsert(bookModel);
+           
+            AuthorBook authorBookModel = new AuthorBook
+            {
+                Id = (int)book.Id,
+                AuthorId = book.AuthorId,
+                BookId = (int)entitybook.Id
+            };
+            var authorbook = _authorbookRepository.Upsert(authorBookModel);
+
             return new BookVM()
             {
                 Id = (int)entitybook.Id,Title = entitybook.Title,
                 ISBN = entitybook.ISBN,Synopsis = entitybook.Synopsis,
-                Npages = entitybook.Npages,PublisherId = entitybook.PublisherId
+                Npages = entitybook.Npages,PublisherId = entitybook.PublisherId,
+                AuthorId = (int)authorbook.AuthorId
             };
         }
     }

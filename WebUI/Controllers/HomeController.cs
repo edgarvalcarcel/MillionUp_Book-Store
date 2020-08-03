@@ -17,7 +17,6 @@ namespace MVC.Controllers
         //    ILogger<HomeController> logger
         //    _logger = logger;
         //}
-
         public IActionResult Index()
         {
             return View();

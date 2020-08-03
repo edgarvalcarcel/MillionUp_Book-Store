@@ -25,6 +25,7 @@ namespace Infrastructure.IoC
             services.AddScoped<IBookRepository, BookRepository>();
             services.AddScoped<IAuthorRepository, AuthorRepository>();
             services.AddScoped<IPublisherRepository, PublisherRepository>();
+            services.AddScoped<IAuthorBookRepository, AuthorBookRepository>();
         }
     }
 }

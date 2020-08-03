@@ -39,9 +39,13 @@ namespace Infrastructure.Data.Repositories
                 };
                 _context.Books.Add(entity);
                 _context.SaveChanges();
+                
+                book.Id = entity.Id;
                 return book;
             }
         }
+
+        
 
         public Book GetBookById(int Id)
         {
