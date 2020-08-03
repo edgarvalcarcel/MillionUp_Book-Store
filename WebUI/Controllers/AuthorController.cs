@@ -43,7 +43,7 @@ namespace WebUI.Controllers
         public IActionResult Create([Bind("Id,Name,SurName")] AuthorViewModel author)
         {
             AuthorViewModel model = _authorService.Upsert(author);
-            return View(model);
+            return RedirectToAction(nameof(Index));
         }
     }
 }

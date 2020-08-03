@@ -41,8 +41,8 @@ namespace WebUI.Controllers
         public IActionResult Create([Bind("Id,Title,ISBN,Synopsis,Npages,PublisherId,AuthorId")] BookVM book)
         {
             BookVM model = _bookService.Upsert(book);
-            return View(model);
-        }
+            return RedirectToAction(nameof(Index));
+        } 
     }
 }
 

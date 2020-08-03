@@ -38,7 +38,7 @@ namespace WebUI.Controllers
         public  IActionResult Create([Bind("Id,Name")] PublisherViewModel publisher)
         {
             PublisherViewModel model = _publisherService.Upsert(publisher);
-            return View(model);
+            return RedirectToAction(nameof(Index));
         }
     }
 }
