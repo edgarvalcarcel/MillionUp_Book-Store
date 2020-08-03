@@ -29,13 +29,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Infrastructure.Data\Infrastructure.Data.csproj" />
-    <ProjectReference Include="..\Infrastructure.IoC\Infrastructure.IoC.csproj" />
+    <None Include="Views\Author\Create.cshtml" />
+    <None Include="Views\Author\Index.cshtml" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="Views\Author\Create.cshtml" />
-    <None Include="Views\Author\Index.cshtml" />
+    <ProjectReference Include="..\Application\Application.csproj" />
+    <ProjectReference Include="..\Infrastructure.IoC\Infrastructure.IoC.csproj" />
   </ItemGroup>
  
 </Project>
