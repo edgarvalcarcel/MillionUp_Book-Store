@@ -19,13 +19,6 @@ namespace Application.UnitTets.Common
                 .UseInMemoryDatabase(Guid.NewGuid().ToString())
                 .Options;
 
-            var operationalStoreOptions = Options.Create(
-                new OperationalStoreOptions
-                {
-                    DeviceFlowCodes = new TableConfiguration("DeviceCodes"),
-                    PersistedGrants = new TableConfiguration("PersistedGrants")
-                });
-
             var context = new BookStoreContext(options);
 
             context.Database.EnsureCreated();
@@ -38,9 +31,9 @@ namespace Application.UnitTets.Common
         public static void SeedSampleData(BookStoreContext context)
         {
             context.Authors.AddRange(
-                new Author { Id = 1, Name = "Gabriel", SurName="Garcia Marquez" },
-                new Author { Id = 1, Name = "Philip", SurName = "Pullman" },
-                new Author { Id = 1, Name = "Margaret", SurName = "Atwood" }
+                new Author { Name = "Gabriel", SurName="Garcia Marquez" },
+                new Author { Name = "Philip", SurName = "Pullman" },
+                new Author { Name = "Margaret", SurName = "Atwood" }
             );
             context.SaveChanges();
         }
