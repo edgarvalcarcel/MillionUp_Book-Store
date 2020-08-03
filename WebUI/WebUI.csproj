@@ -8,9 +8,13 @@
 
   <ItemGroup>
     <Compile Remove="Views\Author\**" />
+    <Compile Remove="wwwroot\css\basket\**" />
     <Content Remove="Views\Author\**" />
+    <Content Remove="wwwroot\css\basket\**" />
     <EmbeddedResource Remove="Views\Author\**" />
+    <EmbeddedResource Remove="wwwroot\css\basket\**" />
     <None Remove="Views\Author\**" />
+    <None Remove="wwwroot\css\basket\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -33,9 +37,5 @@
     <None Include="Views\Author\Create.cshtml" />
     <None Include="Views\Author\Index.cshtml" />
   </ItemGroup>
-
-  <!--<ItemGroup>
-    <Folder Include="Views\Shared\Components\Basket\" />
-  </ItemGroup>-->
-
+ 
 </Project>
