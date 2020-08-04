@@ -31,6 +31,7 @@ namespace Application.UnitTets
                 SurName = "Doe"
             };
             var entityaut = _authorService.Upsert(author);
+            entityaut.ShouldNotBeNull();
         }
     }
 }
